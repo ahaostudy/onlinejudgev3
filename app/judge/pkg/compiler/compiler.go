@@ -80,9 +80,9 @@ func CompileJava(codePath string, limitConf *sandbox.LimitConfig, dir *osfile.Di
 	}
 	exeConf := &sandbox.ExeConfig{
 		ExePath: conf.GetConf().Compiler.Java,
-		Args:    []string{"-cp", exeDir, fmt.Sprintf("-XX:MaxRAM=%d", limitConf.MaxMemory*4), "-Djava.security.manager", "-Dfile.encoding=UTF-8", "-Djava.awt.headless=true", exeName},
+		Args:    []string{"-cp", exeDir, fmt.Sprintf("-XX:MaxRAM=%d", limitConf.MaxMemory), "-Djava.security.manager", "-Dfile.encoding=UTF-8", "-Djava.awt.headless=true", exeName},
 	}
-	limitConf.MaxMemory = 0
+	limitConf.MaxMemory = -1
 	limitConf.MemoryLimitCheckOnly = 1
 	return exeConf, nil
 }
