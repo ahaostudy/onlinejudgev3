@@ -1,0 +1,1 @@
+go build -o /usr/local/bin/cmdmock cmdmock.go

@@ -1,0 +1,28 @@
+FROM ubuntu:22.04
+
+WORKDIR /
+
+
+COPY ./lib/libjudger.so /usr/lib/judger/libjudger.so
+
+RUN <<EOS
+apt-get update
+apt-get install -y gcc g++ openjdk-8-jdk curl
+curl -o go.tar.gz -L https://go.dev/dl/go1.20.7.linux-arm64.tar.gz
+tar -C /usr/local -xzf go.tar.gz
+rm go.tar.gz
+apt-get remove curl
+EOS
+
+ENV GOPATH=/go
+ENV PATH="/usr/local/go/bin:${PATH}"
+
+RUN <<EOS
+gcc --version
+g++ --version
+python3 --version
+java -version
+go version
+EOS
+
+CMD ["sh"]

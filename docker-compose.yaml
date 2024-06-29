@@ -1,0 +1,82 @@
+services:
+  nacos:
+    image: nacos/nacos-server
+    networks:
+      - oj-net
+    platform: linux/amd64
+    ports:
+      - 28848:8848
+    environment:
+      - MODE=standalone
+    volumes:
+      - ./data/nacos/data:/home/nacos/data
+      - ./data/nacos/logs:/home/nacos/logs
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8848/nacos/" ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  mysql:
+    image: mysql:8.3.0
+    networks:
+      - oj-net
+    ports:
+      - 23306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: onlinejudge
+      TZ: Asia/Shanghai
+    volumes:
+      - ./data/mysql/data:/var/lib/mysql
+      - ./data/mysql/my.cnf:/etc/mysql/my.cnf
+      - ./data/mysql/init:/docker-entrypoint-initdb.d
+    command:
+      [
+        "--character-set-server=utf8mb4",
+        "--collation-server=utf8mb4_unicode_ci"
+      ]
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl --silent localhost:3306 >/dev/null || exit 1"
+        ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  redis:
+    image: redis:latest
+    networks:
+      - oj-net
+    ports:
+      - 26379:6379
+    volumes:
+      - ./data/redis:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  rabbitmq:
+    image: rabbitmq:management
+    networks:
+      - oj-net
+    ports:
+      - 25672:5672
+      - 35672:15672
+    volumes:
+      - ./data/rabbitmq:/var/lib/rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+    healthcheck:
+      test: [ "CMD", "rabbitmqctl", "node_health_check" ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+networks:
+  oj-net:

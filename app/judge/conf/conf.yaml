@@ -1,0 +1,30 @@
+server:
+  name: judge
+  version: 1.0.0
+  address: ":8881"
+
+log:
+  level: info
+  max_size: 10
+  max_age: 3
+  max_backups: 50
+
+config_center:
+  host:
+  port: 28848
+  key: online-judge
+
+sandbox:
+  exe_path: /usr/local/bin/cmdmock
+  max_memory: 512000000
+
+compiler:
+  cpp: /usr/bin/g++
+  c: /usr/bin/gcc
+  python3: /usr/bin/python3
+  java: /usr/bin/java
+  javac: /usr/bin/javac
+  go: /Users/haowu/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.22.3.darwin-arm64/bin/go
+
+file:
+  base_url: "data"
