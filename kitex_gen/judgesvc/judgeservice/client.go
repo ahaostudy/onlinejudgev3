@@ -4,6 +4,7 @@ package judgeservice
 
 import (
 	"context"
+
 	judgesvc "github.com/ahaostudy/onlinejudge/kitex_gen/judgesvc"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"

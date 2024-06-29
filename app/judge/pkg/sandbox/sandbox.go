@@ -4,9 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"os/exec"
+
 	"github.com/ahaostudy/onlinejudge/app/judge/conf"
 	"github.com/cloudwego/kitex/pkg/klog"
-	"os/exec"
 )
 
 type SandBox struct {

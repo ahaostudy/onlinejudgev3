@@ -3,14 +3,15 @@ package compiler
 import (
 	"bytes"
 	"fmt"
+	"os/exec"
+	"path/filepath"
+	"strings"
+
 	"github.com/ahaostudy/onlinejudge/app/judge/conf"
 	"github.com/ahaostudy/onlinejudge/app/judge/pkg/language"
 	"github.com/ahaostudy/onlinejudge/app/judge/pkg/osfile"
 	"github.com/ahaostudy/onlinejudge/app/judge/pkg/sandbox"
 	"github.com/cloudwego/kitex/pkg/klog"
-	"os/exec"
-	"path/filepath"
-	"strings"
 )
 
 type Compiler func(codePath string, limitConf *sandbox.LimitConfig, dir *osfile.Dir) (*sandbox.ExeConfig, error)

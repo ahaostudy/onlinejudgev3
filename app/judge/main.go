@@ -1,6 +1,9 @@
 package main
 
 import (
+	"log"
+	"path/filepath"
+
 	ktconf "github.com/ahaostudy/kitextool/conf"
 	ktrdb "github.com/ahaostudy/kitextool/option/redis"
 	"github.com/ahaostudy/kitextool/suite/ktssuite"
@@ -11,8 +14,6 @@ import (
 	"github.com/kitex-contrib/config-nacos/nacos"
 	nacosserver "github.com/kitex-contrib/config-nacos/server"
 	"github.com/kr/pretty"
-	"log"
-	"path/filepath"
 )
 
 func init() {
@@ -28,7 +29,7 @@ func main() {
 		server.WithSuite(ktssuite.NewKitexToolSuite(
 			conf.GetConf(),
 			ktssuite.WithDynamicConfig(nacosCenter),
-			//ktregistry.WithRegistry(ktregistry.NewNacosRegistry()),
+			// ktregistry.WithRegistry(ktregistry.NewNacosRegistry()),
 			ktrdb.WithRedis(),
 		)),
 		server.WithMetaHandler(transmeta.ServerTTHeaderHandler),

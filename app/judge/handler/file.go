@@ -2,12 +2,13 @@ package handler
 
 import (
 	"context"
+	"path/filepath"
+
 	"github.com/ahaostudy/onlinejudge/app/judge/dal/cache"
 	"github.com/ahaostudy/onlinejudge/app/judge/pkg/language"
 	"github.com/ahaostudy/onlinejudge/app/judge/pkg/osfile"
 	"github.com/ahaostudy/onlinejudge/kitex_gen/judgesvc"
 	"github.com/cloudwego/kitex/pkg/kerrors"
-	"path/filepath"
 )
 
 func UploadCode(ctx context.Context, req *judgesvc.UploadCodeRequest) (resp *judgesvc.UploadCodeResponse, err error) {

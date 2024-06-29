@@ -4,12 +4,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/stretchr/testify/assert"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 var (
@@ -42,7 +43,7 @@ func main() {
 )
 
 func PrepareTestData() error {
-	err := os.MkdirAll(testDir, 0777)
+	err := os.MkdirAll(testDir, 0o777)
 	if err != nil {
 		return err
 	}

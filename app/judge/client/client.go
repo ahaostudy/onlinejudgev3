@@ -2,13 +2,14 @@ package main
 
 import (
 	"context"
+	"os"
+
 	"github.com/ahaostudy/onlinejudge/kitex_gen/judgesvc"
 	judgeservice "github.com/ahaostudy/onlinejudge/kitex_gen/judgesvc/judgeservice"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/transmeta"
 	"github.com/cloudwego/kitex/transport"
-	"os"
 )
 
 var (
@@ -43,7 +44,7 @@ func main() {
 	klog.Info("FileId: ", uploadResp.FileId)
 
 	judgeResp, err := cli.Judge(ctx, &judgesvc.JudgeRequest{
-		//Code: code,
+		// Code: code,
 		CodeFileId: &uploadResp.FileId,
 		Input:      input,
 		Language:   lang,

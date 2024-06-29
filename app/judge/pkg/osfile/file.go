@@ -1,10 +1,11 @@
 package osfile
 
 import (
-	"github.com/ahaostudy/onlinejudge/app/judge/conf"
-	"github.com/google/uuid"
 	"os"
 	"path/filepath"
+
+	"github.com/ahaostudy/onlinejudge/app/judge/conf"
+	"github.com/google/uuid"
 )
 
 const tmpPath = "tmp"
