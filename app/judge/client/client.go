@@ -22,9 +22,8 @@ var (
 		return 0;
 	}
 	`)
-	lang   = judgesvc.Language_C
-	input  = []byte("3432 12")
-	fileId = "7cbb450a-c859-4c92-95b2-d4ccaa36f340"
+	lang  = judgesvc.Language_C
+	input = []byte("3432 12")
 )
 
 func main() {
@@ -52,8 +51,6 @@ func main() {
 	handleError(err)
 	klog.Infof("Status: %v, Result: %#v\n", judgeResp.Status.String(), judgeResp)
 
-	_, err = cli.DeleteCode(ctx, &judgesvc.DeleteCodeRequest{FileId: fileId})
-	handleError(err)
 	_, err = cli.DeleteCode(ctx, &judgesvc.DeleteCodeRequest{FileId: uploadResp.FileId})
 	handleError(err)
 }

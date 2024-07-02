@@ -8,9 +8,9 @@ import (
 	"database/sql"
 	"database/sql/driver"
 	"fmt"
-	"strings"
-
+	"github.com/ahaostudy/onlinejudge/kitex_gen/base"
 	"github.com/apache/thrift/lib/go/thrift"
+	"strings"
 )
 
 type Language int64
@@ -2188,7 +2188,7 @@ type JudgeService interface {
 
 	UploadCode(ctx context.Context, req *UploadCodeRequest) (r *UploadCodeResponse, err error)
 
-	DeleteCode(ctx context.Context, req *DeleteCodeRequest) (r *DeleteCodeResponse, err error)
+	DeleteCode(ctx context.Context, req *DeleteCodeRequest) (r *base.Empty, err error)
 }
 
 type JudgeServiceClient struct {
@@ -2235,7 +2235,7 @@ func (p *JudgeServiceClient) UploadCode(ctx context.Context, req *UploadCodeRequ
 	}
 	return _result.GetSuccess(), nil
 }
-func (p *JudgeServiceClient) DeleteCode(ctx context.Context, req *DeleteCodeRequest) (r *DeleteCodeResponse, err error) {
+func (p *JudgeServiceClient) DeleteCode(ctx context.Context, req *DeleteCodeRequest) (r *base.Empty, err error) {
 	var _args JudgeServiceDeleteCodeArgs
 	_args.Req = req
 	var _result JudgeServiceDeleteCodeResult
@@ -2403,7 +2403,7 @@ func (p *judgeServiceProcessorDeleteCode) Process(ctx context.Context, seqId int
 	iprot.ReadMessageEnd()
 	var err2 error
 	result := JudgeServiceDeleteCodeResult{}
-	var retval *DeleteCodeResponse
+	var retval *base.Empty
 	if retval, err2 = p.handler.DeleteCode(ctx, args.Req); err2 != nil {
 		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing DeleteCode: "+err2.Error())
 		oprot.WriteMessageBegin("DeleteCode", thrift.EXCEPTION, seqId)
@@ -3282,7 +3282,7 @@ func (p *JudgeServiceDeleteCodeArgs) Field1DeepEqual(src *DeleteCodeRequest) boo
 }
 
 type JudgeServiceDeleteCodeResult struct {
-	Success *DeleteCodeResponse `thrift:"success,0,optional" frugal:"0,optional,DeleteCodeResponse" json:"success,omitempty"`
+	Success *base.Empty `thrift:"success,0,optional" frugal:"0,optional,base.Empty" json:"success,omitempty"`
 }
 
 func NewJudgeServiceDeleteCodeResult() *JudgeServiceDeleteCodeResult {
@@ -3292,16 +3292,16 @@ func NewJudgeServiceDeleteCodeResult() *JudgeServiceDeleteCodeResult {
 func (p *JudgeServiceDeleteCodeResult) InitDefault() {
 }
 
-var JudgeServiceDeleteCodeResult_Success_DEFAULT *DeleteCodeResponse
+var JudgeServiceDeleteCodeResult_Success_DEFAULT *base.Empty
 
-func (p *JudgeServiceDeleteCodeResult) GetSuccess() (v *DeleteCodeResponse) {
+func (p *JudgeServiceDeleteCodeResult) GetSuccess() (v *base.Empty) {
 	if !p.IsSetSuccess() {
 		return JudgeServiceDeleteCodeResult_Success_DEFAULT
 	}
 	return p.Success
 }
 func (p *JudgeServiceDeleteCodeResult) SetSuccess(x interface{}) {
-	p.Success = x.(*DeleteCodeResponse)
+	p.Success = x.(*base.Empty)
 }
 
 var fieldIDToName_JudgeServiceDeleteCodeResult = map[int16]string{
@@ -3369,7 +3369,7 @@ ReadStructEndError:
 }
 
 func (p *JudgeServiceDeleteCodeResult) ReadField0(iprot thrift.TProtocol) error {
-	_field := NewDeleteCodeResponse()
+	_field := base.NewEmpty()
 	if err := _field.Read(iprot); err != nil {
 		return err
 	}
@@ -3444,7 +3444,7 @@ func (p *JudgeServiceDeleteCodeResult) DeepEqual(ano *JudgeServiceDeleteCodeResu
 	return true
 }
 
-func (p *JudgeServiceDeleteCodeResult) Field0DeepEqual(src *DeleteCodeResponse) bool {
+func (p *JudgeServiceDeleteCodeResult) Field0DeepEqual(src *base.Empty) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false

@@ -2,6 +2,7 @@ package handler
 
 import (
 	"context"
+	"github.com/ahaostudy/onlinejudge/kitex_gen/base"
 	"path/filepath"
 
 	"github.com/ahaostudy/onlinejudge/app/judge/dal/cache"
@@ -24,7 +25,7 @@ func UploadCode(ctx context.Context, req *judgesvc.UploadCodeRequest) (resp *jud
 	if err != nil {
 		return nil, kerrors.NewBizStatusError(50022, "failed to write file: "+err.Error())
 	}
-	fileId, err := cache.NewFileCache(ctx).Store(codePath)
+	fileId, err := cache.NewFileCache(ctx).Set(codePath)
 	if err != nil {
 		return nil, kerrors.NewBizStatusError(50023, "failed to cache store: "+err.Error())
 	}
@@ -32,8 +33,8 @@ func UploadCode(ctx context.Context, req *judgesvc.UploadCodeRequest) (resp *jud
 	return
 }
 
-func DeleteCode(ctx context.Context, req *judgesvc.DeleteCodeRequest) (resp *judgesvc.DeleteCodeResponse, err error) {
-	path, err := cache.NewFileCache(ctx).Load(req.FileId)
+func DeleteCode(ctx context.Context, req *judgesvc.DeleteCodeRequest) (resp *base.Empty, err error) {
+	path, err := cache.NewFileCache(ctx).Get(req.FileId)
 	if err != nil {
 		return nil, kerrors.NewBizStatusError(40031, "file is not exist")
 	}
@@ -41,7 +42,7 @@ func DeleteCode(ctx context.Context, req *judgesvc.DeleteCodeRequest) (resp *jud
 	if err != nil {
 		return nil, kerrors.NewBizStatusError(40031, "file is not exist")
 	}
-	err = cache.NewFileCache(ctx).Delete(req.FileId)
+	err = cache.NewFileCache(ctx).Del(req.FileId)
 	if err != nil {
 		return nil, kerrors.NewBizStatusError(50031, "failed to delete cache")
 	}

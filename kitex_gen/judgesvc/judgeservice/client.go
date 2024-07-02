@@ -4,7 +4,7 @@ package judgeservice
 
 import (
 	"context"
-
+	base "github.com/ahaostudy/onlinejudge/kitex_gen/base"
 	judgesvc "github.com/ahaostudy/onlinejudge/kitex_gen/judgesvc"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"
@@ -14,7 +14,7 @@ import (
 type Client interface {
 	Judge(ctx context.Context, req *judgesvc.JudgeRequest, callOptions ...callopt.Option) (r *judgesvc.JudgeResponse, err error)
 	UploadCode(ctx context.Context, req *judgesvc.UploadCodeRequest, callOptions ...callopt.Option) (r *judgesvc.UploadCodeResponse, err error)
-	DeleteCode(ctx context.Context, req *judgesvc.DeleteCodeRequest, callOptions ...callopt.Option) (r *judgesvc.DeleteCodeResponse, err error)
+	DeleteCode(ctx context.Context, req *judgesvc.DeleteCodeRequest, callOptions ...callopt.Option) (r *base.Empty, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -56,7 +56,7 @@ func (p *kJudgeServiceClient) UploadCode(ctx context.Context, req *judgesvc.Uplo
 	return p.kClient.UploadCode(ctx, req)
 }
 
-func (p *kJudgeServiceClient) DeleteCode(ctx context.Context, req *judgesvc.DeleteCodeRequest, callOptions ...callopt.Option) (r *judgesvc.DeleteCodeResponse, err error) {
+func (p *kJudgeServiceClient) DeleteCode(ctx context.Context, req *judgesvc.DeleteCodeRequest, callOptions ...callopt.Option) (r *base.Empty, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.DeleteCode(ctx, req)
 }

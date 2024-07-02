@@ -2,12 +2,22 @@ package conf
 
 import (
 	ktconf "github.com/ahaostudy/kitextool/conf"
+	"github.com/kr/pretty"
+	"path/filepath"
 )
 
 var conf = new(Conf)
 
 func GetConf() *Conf {
 	return conf
+}
+
+func init() {
+	ktconf.LoadFiles(conf,
+		filepath.Join("conf", "conf.yaml"),
+		filepath.Join("app", "judge", "conf", "conf.yaml"),
+	)
+	_, _ = pretty.Printf("%+v\n", conf)
 }
 
 type Conf struct {

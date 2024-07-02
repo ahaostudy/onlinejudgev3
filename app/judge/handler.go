@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"github.com/ahaostudy/onlinejudge/kitex_gen/base"
 
 	"github.com/ahaostudy/onlinejudge/app/judge/handler"
 	judgesvc "github.com/ahaostudy/onlinejudge/kitex_gen/judgesvc"
@@ -21,6 +22,6 @@ func (s *JudgeServiceImpl) UploadCode(ctx context.Context, req *judgesvc.UploadC
 }
 
 // DeleteCode implements the JudgeServiceImpl interface.
-func (s *JudgeServiceImpl) DeleteCode(ctx context.Context, req *judgesvc.DeleteCodeRequest) (resp *judgesvc.DeleteCodeResponse, err error) {
+func (s *JudgeServiceImpl) DeleteCode(ctx context.Context, req *judgesvc.DeleteCodeRequest) (resp *base.Empty, err error) {
 	return handler.DeleteCode(ctx, req)
 }

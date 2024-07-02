@@ -11,6 +11,8 @@ import (
 	"github.com/apache/thrift/lib/go/thrift"
 
 	"github.com/cloudwego/kitex/pkg/protocol/bthrift"
+
+	"github.com/ahaostudy/onlinejudge/kitex_gen/base"
 )
 
 // unused protection
@@ -21,6 +23,7 @@ var (
 	_ = reflect.Type(nil)
 	_ = thrift.TProtocol(nil)
 	_ = bthrift.BinaryWriter(nil)
+	_ = base.KitexUnusedProtection
 )
 
 func (p *JudgeLimit) FastRead(buf []byte) (int, error) {
@@ -2371,7 +2374,7 @@ ReadStructEndError:
 func (p *JudgeServiceDeleteCodeResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
 
-	tmp := NewDeleteCodeResponse()
+	tmp := base.NewEmpty()
 	if l, err := tmp.FastRead(buf[offset:]); err != nil {
 		return offset, err
 	} else {

@@ -1,9 +1,6 @@
 package main
 
 import (
-	"log"
-	"path/filepath"
-
 	ktconf "github.com/ahaostudy/kitextool/conf"
 	ktrdb "github.com/ahaostudy/kitextool/option/redis"
 	"github.com/ahaostudy/kitextool/suite/ktssuite"
@@ -13,13 +10,8 @@ import (
 	"github.com/cloudwego/kitex/server"
 	"github.com/kitex-contrib/config-nacos/nacos"
 	nacosserver "github.com/kitex-contrib/config-nacos/server"
-	"github.com/kr/pretty"
+	"log"
 )
-
-func init() {
-	ktconf.LoadFiles(conf.GetConf(), filepath.Join("app", "judge", "conf", "conf.yaml"))
-	_, _ = pretty.Printf("%+v\n", conf.GetConf())
-}
 
 func main() {
 	nacosCenter := ktconf.NewNacosConfigCenter(nacos.Options{})

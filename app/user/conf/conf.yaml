@@ -1,0 +1,15 @@
+server:
+  name: user
+  version: 1.0.0
+  address: ":8882"
+
+log:
+  level: info
+  max_size: 10
+  max_age: 3
+  max_backups: 50
+
+config_center:
+  host:
+  port: 28848
+  key: online-judge

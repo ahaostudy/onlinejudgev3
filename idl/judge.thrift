@@ -1,5 +1,7 @@
 namespace go judgesvc
 
+include './base.thrift'
+
 enum Language {
 	CPP
 	C
@@ -64,5 +66,5 @@ struct DeleteCodeResponse {}
 service JudgeService {
     JudgeResponse Judge(1: JudgeRequest req)
     UploadCodeResponse UploadCode(1: UploadCodeRequest req)
-    DeleteCodeResponse DeleteCode(1: DeleteCodeRequest req)
+    base.Empty DeleteCode(1: DeleteCodeRequest req)
 }

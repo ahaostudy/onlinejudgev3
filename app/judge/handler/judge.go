@@ -34,7 +34,7 @@ func Judge(ctx context.Context, req *judgesvc.JudgeRequest) (resp *judgesvc.Judg
 
 	var codePath string
 	if req.CodeFileId != nil {
-		codePath, err = cache.NewFileCache(ctx).Load(*req.CodeFileId)
+		codePath, err = cache.NewFileCache(ctx).Get(*req.CodeFileId)
 		if err != nil {
 			return nil, kerrors.NewBizStatusError(40012, "invalid code_path_id")
 		}

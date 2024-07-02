@@ -5,7 +5,7 @@ package judgeservice
 import (
 	"context"
 	"errors"
-
+	base "github.com/ahaostudy/onlinejudge/kitex_gen/base"
 	judgesvc "github.com/ahaostudy/onlinejudge/kitex_gen/judgesvc"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
@@ -185,7 +185,7 @@ func (p *kClient) UploadCode(ctx context.Context, req *judgesvc.UploadCodeReques
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) DeleteCode(ctx context.Context, req *judgesvc.DeleteCodeRequest) (r *judgesvc.DeleteCodeResponse, err error) {
+func (p *kClient) DeleteCode(ctx context.Context, req *judgesvc.DeleteCodeRequest) (r *base.Empty, err error) {
 	var _args judgesvc.JudgeServiceDeleteCodeArgs
 	_args.Req = req
 	var _result judgesvc.JudgeServiceDeleteCodeResult
