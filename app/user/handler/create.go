@@ -3,6 +3,7 @@ package handler
 import (
 	"context"
 	"errors"
+
 	"github.com/ahaostudy/onlinejudge/app/user/dal/cache"
 
 	"github.com/ahaostudy/onlinejudge/app/user/dal/db"

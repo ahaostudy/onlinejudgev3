@@ -1,8 +1,9 @@
 package sha256
 
 import (
-	"github.com/ahaostudy/onlinejudge/app/user/conf"
 	"testing"
+
+	"github.com/ahaostudy/onlinejudge/app/user/conf"
 )
 
 func TestEncrypt(t *testing.T) {

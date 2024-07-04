@@ -3,12 +3,13 @@ package handler
 import (
 	"context"
 	"fmt"
+	"math/rand"
+	"time"
+
 	"github.com/ahaostudy/onlinejudge/app/user/dal/cache"
 	"github.com/ahaostudy/onlinejudge/app/user/pkg/email"
 	"github.com/ahaostudy/onlinejudge/kitex_gen/usersvc"
 	"github.com/cloudwego/kitex/pkg/kerrors"
-	"math/rand"
-	"time"
 )
 
 func GenCaptcha(ctx context.Context, req *usersvc.GenCaptchaReq) (resp *usersvc.GenCaptchaResp, err error) {

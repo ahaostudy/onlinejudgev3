@@ -5,6 +5,7 @@ package userservice
 import (
 	"context"
 	"errors"
+
 	base "github.com/ahaostudy/onlinejudge/kitex_gen/base"
 	usersvc "github.com/ahaostudy/onlinejudge/kitex_gen/usersvc"
 	client "github.com/cloudwego/kitex/client"

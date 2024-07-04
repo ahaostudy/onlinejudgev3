@@ -6,9 +6,10 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"strings"
+
 	"github.com/ahaostudy/onlinejudge/kitex_gen/base"
 	"github.com/apache/thrift/lib/go/thrift"
-	"strings"
 )
 
 type User struct {

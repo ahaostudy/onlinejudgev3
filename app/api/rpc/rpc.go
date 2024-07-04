@@ -1,12 +1,13 @@
 package rpc
 
 import (
+	"sync"
+
 	ktconf "github.com/ahaostudy/kitextool/conf"
 	"github.com/ahaostudy/kitextool/suite/ktcsuite"
 	usersvc "github.com/ahaostudy/onlinejudge/kitex_gen/usersvc/userservice"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/transport"
-	"sync"
 )
 
 var (

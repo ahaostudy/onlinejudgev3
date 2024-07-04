@@ -3,6 +3,8 @@ package jwt
 import (
 	"context"
 	"errors"
+	"time"
+
 	"github.com/ahaostudy/onlinejudge/app/api/dto"
 	"github.com/ahaostudy/onlinejudge/app/api/rpc"
 	"github.com/ahaostudy/onlinejudge/kitex_gen/usersvc"
@@ -10,7 +12,6 @@ import (
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
 	"github.com/cloudwego/kitex/pkg/kerrors"
 	"github.com/hertz-contrib/jwt"
-	"time"
 )
 
 var (

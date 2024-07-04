@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/ahaostudy/onlinejudge/app/user/dal/db"
 	"log"
+
+	"github.com/ahaostudy/onlinejudge/app/user/dal/db"
 
 	ktconf "github.com/ahaostudy/kitextool/conf"
 	ktdb "github.com/ahaostudy/kitextool/option/db"

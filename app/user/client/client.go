@@ -2,9 +2,10 @@ package main
 
 import (
 	"context"
+	"os"
+
 	"github.com/ahaostudy/onlinejudge/kitex_gen/usersvc"
 	"github.com/ahaostudy/onlinejudge/kitex_gen/usersvc/userservice"
-	"os"
 
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/pkg/klog"

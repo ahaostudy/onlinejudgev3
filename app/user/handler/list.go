@@ -2,6 +2,7 @@ package handler
 
 import (
 	"context"
+
 	"github.com/ahaostudy/onlinejudge/app/user/dal/db"
 
 	"github.com/ahaostudy/onlinejudge/kitex_gen/usersvc"

@@ -2,6 +2,8 @@ package user
 
 import (
 	"context"
+	"net/http"
+
 	"github.com/ahaostudy/onlinejudge/app/api/dto"
 	"github.com/ahaostudy/onlinejudge/app/api/mw/jwt"
 	"github.com/ahaostudy/onlinejudge/app/api/rpc"
@@ -9,7 +11,6 @@ import (
 	"github.com/cloudwego/hertz/pkg/app"
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/cloudwego/hertz/pkg/protocol/consts"
-	"net/http"
 )
 
 func Register(ctx context.Context, c *app.RequestContext) {
