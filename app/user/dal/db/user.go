@@ -2,9 +2,17 @@ package db
 
 import (
 	"context"
+
 	ktdb "github.com/ahaostudy/kitextool/option/db"
 	"github.com/ahaostudy/onlinejudge/app/user/model"
 )
+
+func AutoMigrate() {
+	err := ktdb.DB().AutoMigrate(new(model.User))
+	if err != nil {
+		panic(err)
+	}
+}
 
 func GetById(ctx context.Context, id int64) (*model.User, error) {
 	user := new(model.User)
@@ -34,6 +42,11 @@ func Insert(ctx context.Context, user *model.User) error {
 	return ktdb.DB().WithContext(ctx).Create(user).Error
 }
 
-func Update(ctx context.Context, id int64, user map[string]any) error {
-	return ktdb.DB().WithContext(ctx).Model(new(model.User)).Where("id = ?", id).Updates(user).Error
+func Update(ctx context.Context, id int64, updateMap map[string]any) (*model.User, error) {
+	user := new(model.User)
+	err := ktdb.DB().WithContext(ctx).Model(user).Where("id = ?", id).Updates(updateMap).Scan(user).Error
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
 }

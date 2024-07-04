@@ -2,7 +2,8 @@ package handler
 
 import (
 	"context"
-	"github.com/ahaostudy/onlinejudge/app/user/dal/cache"
+
+	"github.com/ahaostudy/onlinejudge/app/user/dal/db"
 	"github.com/ahaostudy/onlinejudge/app/user/model"
 	"github.com/ahaostudy/onlinejudge/app/user/pkg/sha256"
 	"github.com/ahaostudy/onlinejudge/kitex_gen/usersvc"
@@ -17,11 +18,9 @@ func Login(ctx context.Context, req *usersvc.LoginReq) (resp *usersvc.LoginResp,
 		return nil, kerrors.NewBizStatusError(40022, "identity verification failure")
 	}
 
-	userCache := cache.NewUserCache(ctx)
-
 	var user *model.User
 	if req.Email != nil {
-		user, err = userCache.GetByEmail(*req.Email)
+		user, err = db.GetByEmail(ctx, *req.Email)
 		if err != nil {
 			return nil, kerrors.NewBizStatusError(50021, "failed to get user")
 		}
@@ -31,7 +30,7 @@ func Login(ctx context.Context, req *usersvc.LoginReq) (resp *usersvc.LoginResp,
 			}
 		}
 	} else {
-		user, err = userCache.GetByUsername(*req.Username)
+		user, err = db.GetByUsername(ctx, *req.Username)
 		if err != nil {
 			return nil, kerrors.NewBizStatusError(50021, "failed to get user")
 		}
@@ -40,6 +39,6 @@ func Login(ctx context.Context, req *usersvc.LoginReq) (resp *usersvc.LoginResp,
 		return nil, kerrors.NewBizStatusError(40022, "identity verification failure")
 	}
 
-	resp = &usersvc.LoginResp{UserId: user.ID}
+	resp = &usersvc.LoginResp{UserId: user.Id}
 	return
 }

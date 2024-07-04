@@ -3,7 +3,7 @@ package model
 import "fmt"
 
 // UserRole user role enumerate
-type UserRole int
+type UserRole int32
 
 const (
 	RoleUser  UserRole = 0
@@ -15,7 +15,7 @@ func DefaultSignature(username string) string {
 }
 
 type User struct {
-	ID        int64    `gorm:"primarykey" json:"id"`
+	Id        int64    `gorm:"primarykey" json:"id"`
 	Nickname  string   `json:"nickname"`
 	Username  string   `gorm:"unique" json:"username"`
 	Password  string   `json:"-"`

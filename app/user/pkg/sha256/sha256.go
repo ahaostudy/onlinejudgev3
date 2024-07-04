@@ -3,6 +3,7 @@ package sha256
 import (
 	"crypto/sha256"
 	"encoding/hex"
+
 	"github.com/ahaostudy/onlinejudge/app/user/conf"
 )
 

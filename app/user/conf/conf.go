@@ -1,9 +1,10 @@
 package conf
 
 import (
+	"path/filepath"
+
 	ktconf "github.com/ahaostudy/kitextool/conf"
 	"github.com/kr/pretty"
-	"path/filepath"
 )
 
 var conf = new(Conf)
@@ -27,12 +28,11 @@ type Conf struct {
 }
 
 type Email struct {
-	Addr   string `yaml:"addr"`
-	Host   string `yaml:"host"`
-	From   string `yaml:"from"`
-	Email  string `yaml:"email"`
-	Auth   string `yaml:"auth"`
-	Expire int    `yaml:"expire"`
+	SmtpAddr     string `yaml:"smtp_addr"`
+	SmtpHost     string `yaml:"smtp_host"`
+	EmailFrom    string `yaml:"email_from"`
+	EmailAddress string `yaml:"email_address"`
+	Auth         string `yaml:"auth"`
 }
 
 type Auth struct {

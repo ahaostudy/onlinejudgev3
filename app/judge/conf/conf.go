@@ -1,9 +1,10 @@
 package conf
 
 import (
+	"path/filepath"
+
 	ktconf "github.com/ahaostudy/kitextool/conf"
 	"github.com/kr/pretty"
-	"path/filepath"
 )
 
 var conf = new(Conf)

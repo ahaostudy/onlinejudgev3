@@ -2,9 +2,10 @@ package email
 
 import (
 	"fmt"
-	"github.com/ahaostudy/onlinejudge/app/user/conf"
 	"net/smtp"
 	"regexp"
+
+	"github.com/ahaostudy/onlinejudge/app/user/conf"
 
 	"github.com/jordan-wright/email"
 )
@@ -13,13 +14,13 @@ func Send(subject, html string, toEmails ...string) error {
 	confEmail := conf.GetConf().Email
 	e := email.NewEmail()
 
-	e.From = confEmail.From
+	e.From = confEmail.EmailFrom
 	e.To = toEmails
 	e.Subject = subject
 	e.HTML = []byte(html)
-	auth := smtp.PlainAuth("", confEmail.Email, confEmail.Auth, confEmail.Host)
+	auth := smtp.PlainAuth("", confEmail.EmailAddress, confEmail.Auth, confEmail.SmtpHost)
 
-	return e.Send(confEmail.Addr, auth)
+	return e.Send(confEmail.SmtpAddr, auth)
 }
 
 func SendCaptcha(captcha string, toEmails ...string) error {

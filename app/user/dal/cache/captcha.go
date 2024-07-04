@@ -3,8 +3,9 @@ package cache
 import (
 	"context"
 	"fmt"
-	ktrdb "github.com/ahaostudy/kitextool/option/redis"
 	"time"
+
+	ktrdb "github.com/ahaostudy/kitextool/option/redis"
 )
 
 const (
@@ -15,11 +16,7 @@ type CaptchaCache struct {
 	ctx context.Context
 }
 
-func NewCaptchaCache(ctx context.Context) *CaptchaCache {
-	return &CaptchaCache{ctx: ctx}
-}
-
-func (c *CaptchaCache) Set(email string, captcha string) error {
+func (c *CaptchaCache) Set(email, captcha string) error {
 	key := fmt.Sprintf("%s:%s", CaptchaKey, email)
 	return ktrdb.RDB().Set(c.ctx, key, captcha, 5*time.Minute).Err()
 }
@@ -36,4 +33,8 @@ func (c *CaptchaCache) Get(email string) (string, error) {
 func (c *CaptchaCache) Del(email string) error {
 	key := fmt.Sprintf("%s:%s", CaptchaKey, email)
 	return ktrdb.RDB().Del(c.ctx, key).Err()
+}
+
+func NewCaptchaCache(ctx context.Context) *CaptchaCache {
+	return &CaptchaCache{ctx: ctx}
 }

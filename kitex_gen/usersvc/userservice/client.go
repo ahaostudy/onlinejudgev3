@@ -15,9 +15,8 @@ type Client interface {
 	Register(ctx context.Context, req *usersvc.RegisterReq, callOptions ...callopt.Option) (r *usersvc.RegisterResp, err error)
 	Login(ctx context.Context, req *usersvc.LoginReq, callOptions ...callopt.Option) (r *usersvc.LoginResp, err error)
 	CreateUser(ctx context.Context, req *usersvc.CreateUserReq, callOptions ...callopt.Option) (r *usersvc.CreateUserResp, err error)
-	Update(ctx context.Context, req *usersvc.UpdateUserReq, callOptions ...callopt.Option) (r *base.Empty, err error)
+	UpdateUser(ctx context.Context, req *usersvc.UpdateUserReq, callOptions ...callopt.Option) (r *base.Empty, err error)
 	GenCaptcha(ctx context.Context, req *usersvc.GenCaptchaReq, callOptions ...callopt.Option) (r *usersvc.GenCaptchaResp, err error)
-	GetPermission(ctx context.Context, req *usersvc.GetPermissionReq, callOptions ...callopt.Option) (r *usersvc.GetPermissionResp, err error)
 	GetUser(ctx context.Context, req *usersvc.GetUserReq, callOptions ...callopt.Option) (r *usersvc.GetUserResp, err error)
 	GetUserList(ctx context.Context, req *usersvc.GetUserListReq, callOptions ...callopt.Option) (r *usersvc.GetUserListResp, err error)
 	UploadAvatar(ctx context.Context, req *usersvc.UploadAvatarReq, callOptions ...callopt.Option) (r *usersvc.UploadAvatarResp, err error)
@@ -69,19 +68,14 @@ func (p *kUserServiceClient) CreateUser(ctx context.Context, req *usersvc.Create
 	return p.kClient.CreateUser(ctx, req)
 }
 
-func (p *kUserServiceClient) Update(ctx context.Context, req *usersvc.UpdateUserReq, callOptions ...callopt.Option) (r *base.Empty, err error) {
+func (p *kUserServiceClient) UpdateUser(ctx context.Context, req *usersvc.UpdateUserReq, callOptions ...callopt.Option) (r *base.Empty, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.Update(ctx, req)
+	return p.kClient.UpdateUser(ctx, req)
 }
 
 func (p *kUserServiceClient) GenCaptcha(ctx context.Context, req *usersvc.GenCaptchaReq, callOptions ...callopt.Option) (r *usersvc.GenCaptchaResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GenCaptcha(ctx, req)
-}
-
-func (p *kUserServiceClient) GetPermission(ctx context.Context, req *usersvc.GetPermissionReq, callOptions ...callopt.Option) (r *usersvc.GetPermissionResp, err error) {
-	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.GetPermission(ctx, req)
 }
 
 func (p *kUserServiceClient) GetUser(ctx context.Context, req *usersvc.GetUserReq, callOptions ...callopt.Option) (r *usersvc.GetUserResp, err error) {

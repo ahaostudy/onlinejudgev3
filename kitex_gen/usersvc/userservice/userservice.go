@@ -35,10 +35,10 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
-	"Update": kitex.NewMethodInfo(
-		updateHandler,
-		newUserServiceUpdateArgs,
-		newUserServiceUpdateResult,
+	"UpdateUser": kitex.NewMethodInfo(
+		updateUserHandler,
+		newUserServiceUpdateUserArgs,
+		newUserServiceUpdateUserResult,
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
@@ -46,13 +46,6 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		genCaptchaHandler,
 		newUserServiceGenCaptchaArgs,
 		newUserServiceGenCaptchaResult,
-		false,
-		kitex.WithStreamingMode(kitex.StreamingNone),
-	),
-	"GetPermission": kitex.NewMethodInfo(
-		getPermissionHandler,
-		newUserServiceGetPermissionArgs,
-		newUserServiceGetPermissionResult,
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
@@ -211,22 +204,22 @@ func newUserServiceCreateUserResult() interface{} {
 	return usersvc.NewUserServiceCreateUserResult()
 }
 
-func updateHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*usersvc.UserServiceUpdateArgs)
-	realResult := result.(*usersvc.UserServiceUpdateResult)
-	success, err := handler.(usersvc.UserService).Update(ctx, realArg.Req)
+func updateUserHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*usersvc.UserServiceUpdateUserArgs)
+	realResult := result.(*usersvc.UserServiceUpdateUserResult)
+	success, err := handler.(usersvc.UserService).UpdateUser(ctx, realArg.Req)
 	if err != nil {
 		return err
 	}
 	realResult.Success = success
 	return nil
 }
-func newUserServiceUpdateArgs() interface{} {
-	return usersvc.NewUserServiceUpdateArgs()
+func newUserServiceUpdateUserArgs() interface{} {
+	return usersvc.NewUserServiceUpdateUserArgs()
 }
 
-func newUserServiceUpdateResult() interface{} {
-	return usersvc.NewUserServiceUpdateResult()
+func newUserServiceUpdateUserResult() interface{} {
+	return usersvc.NewUserServiceUpdateUserResult()
 }
 
 func genCaptchaHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
@@ -245,24 +238,6 @@ func newUserServiceGenCaptchaArgs() interface{} {
 
 func newUserServiceGenCaptchaResult() interface{} {
 	return usersvc.NewUserServiceGenCaptchaResult()
-}
-
-func getPermissionHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*usersvc.UserServiceGetPermissionArgs)
-	realResult := result.(*usersvc.UserServiceGetPermissionResult)
-	success, err := handler.(usersvc.UserService).GetPermission(ctx, realArg.Req)
-	if err != nil {
-		return err
-	}
-	realResult.Success = success
-	return nil
-}
-func newUserServiceGetPermissionArgs() interface{} {
-	return usersvc.NewUserServiceGetPermissionArgs()
-}
-
-func newUserServiceGetPermissionResult() interface{} {
-	return usersvc.NewUserServiceGetPermissionResult()
 }
 
 func getUserHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
@@ -395,11 +370,11 @@ func (p *kClient) CreateUser(ctx context.Context, req *usersvc.CreateUserReq) (r
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) Update(ctx context.Context, req *usersvc.UpdateUserReq) (r *base.Empty, err error) {
-	var _args usersvc.UserServiceUpdateArgs
+func (p *kClient) UpdateUser(ctx context.Context, req *usersvc.UpdateUserReq) (r *base.Empty, err error) {
+	var _args usersvc.UserServiceUpdateUserArgs
 	_args.Req = req
-	var _result usersvc.UserServiceUpdateResult
-	if err = p.c.Call(ctx, "Update", &_args, &_result); err != nil {
+	var _result usersvc.UserServiceUpdateUserResult
+	if err = p.c.Call(ctx, "UpdateUser", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -410,16 +385,6 @@ func (p *kClient) GenCaptcha(ctx context.Context, req *usersvc.GenCaptchaReq) (r
 	_args.Req = req
 	var _result usersvc.UserServiceGenCaptchaResult
 	if err = p.c.Call(ctx, "GenCaptcha", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *kClient) GetPermission(ctx context.Context, req *usersvc.GetPermissionReq) (r *usersvc.GetPermissionResp, err error) {
-	var _args usersvc.UserServiceGetPermissionArgs
-	_args.Req = req
-	var _result usersvc.UserServiceGetPermissionResult
-	if err = p.c.Call(ctx, "GetPermission", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

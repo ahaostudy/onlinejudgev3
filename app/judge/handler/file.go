@@ -2,8 +2,9 @@ package handler
 
 import (
 	"context"
-	"github.com/ahaostudy/onlinejudge/kitex_gen/base"
 	"path/filepath"
+
+	"github.com/ahaostudy/onlinejudge/kitex_gen/base"
 
 	"github.com/ahaostudy/onlinejudge/app/judge/dal/cache"
 	"github.com/ahaostudy/onlinejudge/app/judge/pkg/language"

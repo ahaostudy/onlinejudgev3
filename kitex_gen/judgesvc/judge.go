@@ -8,9 +8,10 @@ import (
 	"database/sql"
 	"database/sql/driver"
 	"fmt"
+	"strings"
+
 	"github.com/ahaostudy/onlinejudge/kitex_gen/base"
 	"github.com/apache/thrift/lib/go/thrift"
-	"strings"
 )
 
 type Language int64

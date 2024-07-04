@@ -5,6 +5,7 @@ package judgeservice
 import (
 	"context"
 	"errors"
+
 	base "github.com/ahaostudy/onlinejudge/kitex_gen/base"
 	judgesvc "github.com/ahaostudy/onlinejudge/kitex_gen/judgesvc"
 	client "github.com/cloudwego/kitex/client"
