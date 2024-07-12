@@ -12,7 +12,7 @@ func RegisterRoute(r *server.Hertz) {
 	apiUser := api.Group("/user")
 	{
 		apiUser.POST("/register", user.Register)
-		apiUser.POST("/login", jwt.Middleware.LoginHandler)
+		apiUser.POST("/login", jwt.Middleware.LoginHandler, user.Login)
 		apiUser.GET("/refresh", jwt.Middleware.RefreshHandler)
 		apiUser.POST("/captcha", user.GetCaptcha)
 

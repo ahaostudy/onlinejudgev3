@@ -4,9 +4,9 @@ import (
 	"log"
 
 	ktconf "github.com/ahaostudy/kitextool/conf"
-	ktrdb "github.com/ahaostudy/kitextool/option/redis"
-	ktregistry "github.com/ahaostudy/kitextool/option/registry"
-	"github.com/ahaostudy/kitextool/suite/ktssuite"
+	ktrdb "github.com/ahaostudy/kitextool/option/server/redis"
+	ktregistry "github.com/ahaostudy/kitextool/option/server/registry"
+	ktserver "github.com/ahaostudy/kitextool/suite/server"
 	"github.com/ahaostudy/onlinejudge/app/judge/conf"
 	judgesvc "github.com/ahaostudy/onlinejudge/kitex_gen/judgesvc/judgeservice"
 	"github.com/cloudwego/kitex/server"
@@ -17,13 +17,13 @@ import (
 
 func main() {
 	nacosCenter := ktconf.NewNacosConfigCenter(nacos.Options{})
-	nacosCenter.InitClient(&conf.GetConf().ConfigCenter)
+	nacosCenter.Init(&conf.GetConf().ConfigCenter)
 
 	svr := judgesvc.NewServer(new(JudgeServiceImpl),
-		server.WithSuite(ktssuite.NewKitexToolSuite(
+		server.WithSuite(ktserver.NewKitexToolSuite(
 			conf.GetConf(),
-			ktssuite.WithTransport(transport.TTHeaderFramed),
-			ktssuite.WithDynamicConfig(nacosCenter),
+			ktserver.WithTransport(transport.TTHeaderFramed),
+			ktserver.WithDynamicConfig(nacosCenter),
 			ktregistry.WithRegistry(ktregistry.NewNacosRegistry()),
 			ktrdb.WithRedis(),
 		)),

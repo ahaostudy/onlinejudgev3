@@ -22,7 +22,7 @@ func init() {
 }
 
 type Conf struct {
-	ktconf.Default
+	ktconf.ServerConf
 	Sandbox  Sandbox  `yaml:"sandbox"`
 	Compiler Compiler `yaml:"compiler"`
 	File     File     `yaml:"file"`

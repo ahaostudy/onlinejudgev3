@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	ktrdb "github.com/ahaostudy/kitextool/option/redis"
+	ktrdb "github.com/ahaostudy/kitextool/option/server/redis"
 )
 
 const (

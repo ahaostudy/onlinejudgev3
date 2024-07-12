@@ -47,7 +47,7 @@ func Init() {
 			if err != nil {
 				return "", jwt.ErrMissingLoginValues
 			}
-			result, err := rpc.UserClient.Login(ctx, &usersvc.LoginReq{
+			result, err := rpc.UserCli.Login(ctx, &usersvc.LoginReq{
 				Username: req.Username,
 				Email:    req.Email,
 				Password: req.Password,
@@ -69,7 +69,8 @@ func Init() {
 			c.JSON(code, dto.BaseResp{StatusCode: statusCode, StatusMsg: message})
 		},
 		LoginResponse: func(ctx context.Context, c *app.RequestContext, code int, token string, expire time.Time) {
-			c.JSON(code, dto.LoginResp{BaseResp: dto.SuccessResp(), Token: token, Expire: expire.Format(time.RFC3339)})
+			c.Set("token", token)
+			c.Set("expire", expire.Format(time.RFC3339))
 		},
 		RefreshResponse: func(ctx context.Context, c *app.RequestContext, code int, token string, expire time.Time) {
 			c.JSON(code, dto.LoginResp{BaseResp: dto.SuccessResp(), Token: token, Expire: expire.Format(time.RFC3339)})

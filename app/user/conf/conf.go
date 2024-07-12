@@ -22,7 +22,7 @@ func init() {
 }
 
 type Conf struct {
-	ktconf.Default
+	ktconf.ServerConf
 	Email Email `yaml:"email"`
 	Auth  Auth  `yaml:"auth"`
 }

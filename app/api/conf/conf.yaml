@@ -1,0 +1,11 @@
+server:
+  name: api
+
+resolver:
+  address:
+    - "127.0.0.1:28848"
+
+config_center:
+  host: "127.0.0.1:28848"
+  port: 28848
+  key: "online-judge"

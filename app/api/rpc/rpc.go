@@ -3,8 +3,10 @@ package rpc
 import (
 	"sync"
 
-	ktconf "github.com/ahaostudy/kitextool/conf"
-	"github.com/ahaostudy/kitextool/suite/ktcsuite"
+	ktresolver "github.com/ahaostudy/kitextool/option/client/resolver"
+	"github.com/ahaostudy/onlinejudge/app/api/conf"
+
+	ktclient "github.com/ahaostudy/kitextool/suite/client"
 	usersvc "github.com/ahaostudy/onlinejudge/kitex_gen/usersvc/userservice"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/transport"
@@ -12,18 +14,17 @@ import (
 
 var (
 	once sync.Once
-	conf *ktconf.Default
 
-	UserClient usersvc.Client
+	UserCli usersvc.Client
 )
 
 func InitClient() {
 	once.Do(func() {
-		UserClient = usersvc.MustNewClient("user",
-			client.WithHostPorts("127.0.0.1:8882"),
-			client.WithSuite(ktcsuite.NewKitexToolSuite(
-				conf,
-				ktcsuite.WithTransport(transport.TTHeaderFramed),
+		UserCli = usersvc.MustNewClient("user",
+			client.WithSuite(ktclient.NewKitexToolSuite(
+				conf.GetConf().ClientConf,
+				ktclient.WithTransport(transport.TTHeaderFramed),
+				ktresolver.WithResolver(ktresolver.NewNacosResolver),
 			)),
 		)
 	})

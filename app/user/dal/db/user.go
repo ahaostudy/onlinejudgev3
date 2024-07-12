@@ -3,7 +3,7 @@ package db
 import (
 	"context"
 
-	ktdb "github.com/ahaostudy/kitextool/option/db"
+	ktdb "github.com/ahaostudy/kitextool/option/server/db"
 	"github.com/ahaostudy/onlinejudge/app/user/model"
 )
 

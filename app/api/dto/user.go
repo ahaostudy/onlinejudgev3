@@ -26,12 +26,13 @@ type LoginReq struct {
 type LoginResp struct {
 	BaseResp
 	Token  string `json:"token"`
+	UserId int64  `json:"user_id"`
 	Expire string `json:"expire"`
 }
 
 type RegisterReq struct {
 	Email    string `json:"email,required"`
-	Captcha  string `json:"captcha"`
+	Captcha  string `json:"captcha,omitempty"`
 	Password string `json:"password"`
 }
 
@@ -39,6 +40,7 @@ type RegisterResp struct {
 	BaseResp
 	Token  string `json:"token"`
 	UserId int64  `json:"user_id"`
+	Expire string `json:"expire"`
 }
 
 type GetUserByIdReq struct {

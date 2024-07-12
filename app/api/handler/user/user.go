@@ -22,7 +22,7 @@ func Register(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	result, err := rpc.UserClient.Register(ctx, &usersvc.RegisterReq{
+	result, err := rpc.UserCli.Register(ctx, &usersvc.RegisterReq{
 		Email:    req.Email,
 		Captcha:  req.Captcha,
 		Password: req.Password,
@@ -32,7 +32,19 @@ func Register(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	c.JSON(http.StatusOK, dto.RegisterResp{BaseResp: dto.SuccessResp(), UserId: result.UserId})
+	// TODO: due to the expiration of the captcha, it will result in an additional invalid validation process when logging in
+	jwt.Middleware.LoginHandler(ctx, c)
+	token := c.GetString("token")
+	expire := c.GetString("expire")
+
+	c.JSON(http.StatusOK, dto.RegisterResp{BaseResp: dto.SuccessResp(), UserId: result.UserId, Token: token, Expire: expire})
+}
+
+func Login(ctx context.Context, c *app.RequestContext) {
+	token := c.GetString("token")
+	userId := c.GetInt64(jwt.IdentityKey)
+	expire := c.GetString("expire")
+	c.JSON(http.StatusOK, dto.LoginResp{BaseResp: dto.SuccessResp(), UserId: userId, Token: token, Expire: expire})
 }
 
 func GetUser(ctx context.Context, c *app.RequestContext) {
@@ -61,7 +73,7 @@ func GetUserByUsername(ctx context.Context, c *app.RequestContext) {
 }
 
 func getUser(ctx context.Context, c *app.RequestContext, req *usersvc.GetUserReq) {
-	result, err := rpc.UserClient.GetUser(ctx, req)
+	result, err := rpc.UserCli.GetUser(ctx, req)
 	if err != nil {
 		c.JSON(consts.StatusOK, dto.GetUserResp{BaseResp: dto.BuildBaseResp(err)})
 		return
@@ -85,7 +97,7 @@ func CreateUser(ctx context.Context, c *app.RequestContext) {
 		c.JSON(consts.StatusOK, dto.CreateUserResp{BaseResp: dto.BuildBaseResp(err)})
 		return
 	}
-	result, err := rpc.UserClient.CreateUser(ctx, &usersvc.CreateUserReq{
+	result, err := rpc.UserCli.CreateUser(ctx, &usersvc.CreateUserReq{
 		Nickname:  req.Nickname,
 		Username:  req.Username,
 		Password:  req.Password,
@@ -109,7 +121,7 @@ func UpdateUser(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 	loggedInId := c.GetInt64(jwt.IdentityKey)
-	_, err = rpc.UserClient.UpdateUser(ctx, &usersvc.UpdateUserReq{
+	_, err = rpc.UserCli.UpdateUser(ctx, &usersvc.UpdateUserReq{
 		Id:         req.Id,
 		LoggedInId: loggedInId,
 		Nickname:   req.Nickname,
@@ -135,7 +147,7 @@ func GetCaptcha(ctx context.Context, c *app.RequestContext) {
 		return
 	}
 
-	result, err := rpc.UserClient.GenCaptcha(ctx, &usersvc.GenCaptchaReq{Email: req.Email})
+	result, err := rpc.UserCli.GenCaptcha(ctx, &usersvc.GenCaptchaReq{Email: req.Email})
 	if err != nil {
 		c.JSON(consts.StatusOK, dto.GetCaptchaResp{BaseResp: dto.BuildBaseResp(err)})
 		return

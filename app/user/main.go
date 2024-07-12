@@ -6,10 +6,10 @@ import (
 	"github.com/ahaostudy/onlinejudge/app/user/dal/db"
 
 	ktconf "github.com/ahaostudy/kitextool/conf"
-	ktdb "github.com/ahaostudy/kitextool/option/db"
-	ktrdb "github.com/ahaostudy/kitextool/option/redis"
-	ktregistry "github.com/ahaostudy/kitextool/option/registry"
-	"github.com/ahaostudy/kitextool/suite/ktssuite"
+	ktdb "github.com/ahaostudy/kitextool/option/server/db"
+	ktrdb "github.com/ahaostudy/kitextool/option/server/redis"
+	ktregistry "github.com/ahaostudy/kitextool/option/server/registry"
+	ktserver "github.com/ahaostudy/kitextool/suite/server"
 	"github.com/ahaostudy/onlinejudge/app/user/conf"
 	usersvc "github.com/ahaostudy/onlinejudge/kitex_gen/usersvc/userservice"
 	"github.com/cloudwego/kitex/server"
@@ -19,10 +19,10 @@ import (
 
 func main() {
 	svr := usersvc.NewServer(new(UserServiceImpl),
-		server.WithSuite(ktssuite.NewKitexToolSuite(
+		server.WithSuite(ktserver.NewKitexToolSuite(
 			conf.GetConf(),
-			ktssuite.WithTransport(transport.TTHeaderFramed),
-			ktssuite.WithDynamicConfig(ktconf.NewNacosConfigCenter(nacos.Options{})),
+			ktserver.WithTransport(transport.TTHeaderFramed),
+			ktserver.WithDynamicConfig(ktconf.NewNacosConfigCenter(nacos.Options{})),
 			ktregistry.WithRegistry(ktregistry.NewNacosRegistry()),
 			ktdb.WithDB(ktdb.NewMySQLDial()),
 			ktrdb.WithRedis(),

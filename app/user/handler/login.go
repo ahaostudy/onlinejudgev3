@@ -25,8 +25,8 @@ func Login(ctx context.Context, req *usersvc.LoginReq) (resp *usersvc.LoginResp,
 			return nil, kerrors.NewBizStatusError(50021, "failed to get user")
 		}
 		if req.Captcha != nil {
-			if ok := CheckCaptcha(ctx, *req.Email, *req.Captcha); !ok {
-				return nil, kerrors.NewBizStatusError(40022, "identity verification failure")
+			if ok := CheckCaptcha(ctx, *req.Email, *req.Captcha); ok {
+				return &usersvc.LoginResp{UserId: user.Id}, nil
 			}
 		}
 	} else {

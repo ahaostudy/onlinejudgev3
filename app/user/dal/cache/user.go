@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"time"
 
-	ktrdb "github.com/ahaostudy/kitextool/option/redis"
+	ktrdb "github.com/ahaostudy/kitextool/option/server/redis"
 	"github.com/ahaostudy/onlinejudge/app/user/dal/db"
 	"github.com/ahaostudy/onlinejudge/app/user/model"
 	"gorm.io/gorm"
